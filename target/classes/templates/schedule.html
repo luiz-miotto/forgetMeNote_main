@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+
+<h3>Your Schedule:</h3>
+<div id="eachEvent" th:each="event : ${eventList}">
+    <text th:field="*{event}"
+           th:value="${name}"/>
+    <div id="eventAttribute">Name</div>
+    <span th:text="${event.name}">Event Name</span><br/>
+    <div id="eventAttribute">Description</div>
+    <span th:text="${event.description}">Event Description</span>
+    <div id="eventAttribute">Scheduled Date</div>
+    <span th:text="${event.scheduledDate}">Scheduled date</span>
+    <div id="eventAttribute">Due Date</div>
+    <span th:text="${event.dueDate}">Due date</span>
+    <div id="eventSeparator"></div>
+
+</div>
+
+<form method="POST" th:object="${event}">
+<label>Description</label>
+
+<input type="text" th:field="*{name}"/>
+<button>Submit Event</button>
+</form>
+
+</body>
+</html>
