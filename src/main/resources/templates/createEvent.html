@@ -37,6 +37,11 @@
     <label>Due Date</label>
     <input type="text" th:field="*{dueDate}">
 
+    <select name="Users" >
+        <option th:each="attendee : ${userList}"
+                th:value="${attendees}" th:text="${attendee.getName()}"></option>
+    </select>
+
     <button>Submit Event</button>
 </form>
 

@@ -2,7 +2,6 @@ package com.example.forgetmenote.web.controllers;
 
 import com.example.forgetmenote.payload.request.LoginRequest;
 import com.example.forgetmenote.payload.response.JwtResponse;
-import com.example.forgetmenote.security.jwt.JwtUtils;
 import com.example.forgetmenote.services.UserDetailsImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +22,14 @@ import java.util.stream.Collectors;
 @Controller
 public class LoginController {
 
+    /*
     @Autowired
     AuthenticationManager authenticationManager;
 
     @Autowired
     JwtUtils jwtUtils;
+
+     */
 
     @GetMapping("/login")
     public String showLoginForm(Model model){
@@ -35,6 +37,7 @@ public class LoginController {
         return "loginForm";
     }
 
+    /*
     @PostMapping("/auth/api/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
@@ -51,4 +54,6 @@ public class LoginController {
         return ResponseEntity
                 .ok(new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(), roles));
     }
+
+ */
 }

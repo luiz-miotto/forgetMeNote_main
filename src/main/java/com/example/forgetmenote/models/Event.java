@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Data
 @Entity
 @Table(name = "event")
@@ -19,6 +21,8 @@ public class Event {
     private String scheduledDate;
     private String dueDate;
     private int importance;
+    @OneToMany
+    private List<User> attendees;
 
     @Enumerated(EnumType.STRING)
     private Event.EventType eventType;
@@ -30,7 +34,6 @@ public class Event {
 
     }
     public Event(){
-        System.out.println("even with no name was created");
         this.dateCreated = 0;
     }
 
@@ -40,12 +43,10 @@ public class Event {
 
     public Event(String name){
         this.name = name;
-        System.out.println("event WITH a name was created");
     }
     public Event(String name, String description){
         this.name = name;
         this.description = description;
-        System.out.println("event with a name and description was created");
     }
 
     public String getName(){
@@ -54,7 +55,6 @@ public class Event {
 
     public void setName(String name){
         this.name = name;
-        System.out.println("name was set");
     }
 
 
@@ -76,6 +76,15 @@ public class Event {
 
     public void setEventType(EventType eventType) {
         this.eventType = eventType;
+    }
+
+    public void setAttendee(User user){
+        System.out.println("user was added to event");
+        this.attendees.add(user);
+    }
+
+    public List<User> getAttendees(){
+        return this.attendees;
     }
 
     public Event.EventType getEventType(){

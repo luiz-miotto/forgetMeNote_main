@@ -1,0 +1,24 @@
+SEPT 01 23:
+Next objects to tackle:
+* Apply method level security
+* Pull user records from database to allow for events to be user specific
+    * maybe plan where the user fits into the mechanics of the app, i.e. what sort of
+    functionality will user-event relationship allow for
+
+SEPT 02 23:
+* Regarding users: Users will be able to create events and add other app users to the event.
+    Events will have an `eventCreator` and `listOfInvitedUsers` attributes
+CLOSING:
+    successfully denormalized user/event relationship by creating a events_with_users table
+    Table works but always defaults to event_id = 0 and user_id = 0
+    Need to figure out if foreign key is necessary or a hindrance
+    Need to also understand if data denormalization needs to happen in database, i.e. with foreign keys, or
+    if the denormalization happening via the code is enough/exactly hwat I need
+    One potential solution would be to save the event, get the id generated for the event, and then manually add the
+    event_id to the events_with_users before saving it to the repository
+
+
+SEPT 03 23:
+* Worked out data denormilization
+*Need to figure out why attendee list is blank when submitting form despite the fact that the attendee list
+    is sucessfully pulled from db and is populated on web

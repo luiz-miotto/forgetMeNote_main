@@ -1,51 +1,72 @@
 package com.example.forgetmenote.security;
 
-import com.example.forgetmenote.repositories.UserRepository;
-import com.example.forgetmenote.security.jwt.AuthTokenFilter;
-import com.example.forgetmenote.services.UserDetailsServiceImpl;
-import org.postgresql.ds.PGSimpleDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.JdbcUserDetailsManager;
-import org.springframework.security.provisioning.UserDetailsManager;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-
-import javax.sql.DataSource;
-import javax.xml.crypto.Data;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import static org.springframework.security.config.Customizer.withDefaults;
-
+///IMPORTANT NOTE ABOUT CODE THAT IS COMMENTED OUT:
+//the heavy use of comments on this file is to remove the JWT authentication component of this app
+//JWT removal is temporary and only in place so as to not impede my progress with the rest of the app
 @Configuration
-@EnableMethodSecurity
+@EnableWebSecurity
 public class SecurityConfig {
 
+    /*
     @Autowired
-    UserDetailsServiceImpl userDetailsService;
+    UserDetailsServiceImpl userDetailsService
 
+*/
+
+    /*
     @Autowired
     private AuthEntryPointJwt unauthorizedHandler;
 
+
+
+     */
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
+        return http
+                .authorizeHttpRequests(authorizeConfig ->{
+                    authorizeConfig.requestMatchers("/").permitAll();
+                    authorizeConfig.requestMatchers("/home").permitAll();
+                    authorizeConfig.requestMatchers("/signUpForm").permitAll();
+                    authorizeConfig.requestMatchers("/login").permitAll();
+                    authorizeConfig.anyRequest().authenticated();
+                })
+                .formLogin().loginPage("/login")
+                .and()
+                .build();
+    }
+
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
+        return authConfig.getAuthenticationManager();
+    }
+
+    @Bean
+    public UserDetailsService userDetailsService(){
+        return new InMemoryUserDetailsManager(
+                User.builder()
+                        .username("user")
+                        .password("{noop}Pass123")
+                        .authorities("ROLE_user")
+                        .build()
+        );
+    }
+
+    /*
     @Bean
     public AuthTokenFilter authenticationJwtTokenFilter(){
         return new AuthTokenFilter();
@@ -73,7 +94,10 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+    */
 
+
+    /*
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
@@ -101,20 +125,11 @@ public class SecurityConfig {
         return http.build();
     }
 
+    */
 
 
 
-    /*
-    @Bean
-    public UserDetailsService userDetailsService(){
-        return new InMemoryUserDetailsManager(
-                User.builder()
-                        .username("user")
-                        .password("{noop}Pass123")
-                        .authorities("ROLE_user")
-                        .build()
-        );
-    }
 
-     */
+
+
 }
