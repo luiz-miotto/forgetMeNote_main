@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -21,8 +22,9 @@ public class Event {
     private String scheduledDate;
     private String dueDate;
     private int importance;
-    @OneToMany
-    private List<User> attendees;
+    private Boolean active;
+   // @OneToMany
+    private List<String> attendees;
 
     @Enumerated(EnumType.STRING)
     private Event.EventType eventType;
@@ -35,6 +37,8 @@ public class Event {
     }
     public Event(){
         this.dateCreated = 0;
+        this.attendees = new ArrayList<>();
+        this.active = true;
     }
 
     public Event(Event.EventType type){
@@ -43,10 +47,12 @@ public class Event {
 
     public Event(String name){
         this.name = name;
+        this.attendees = new ArrayList<>();
     }
     public Event(String name, String description){
         this.name = name;
         this.description = description;
+        this.attendees = new ArrayList<>();
     }
 
     public String getName(){
@@ -78,12 +84,12 @@ public class Event {
         this.eventType = eventType;
     }
 
-    public void setAttendee(User user){
+    public void setAttendee(String username){
         System.out.println("user was added to event");
-        this.attendees.add(user);
+        this.attendees.add(username);
     }
 
-    public List<User> getAttendees(){
+    public List<String> getAttendees(){
         return this.attendees;
     }
 

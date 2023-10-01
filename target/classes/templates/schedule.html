@@ -19,6 +19,9 @@
     <span th:text="${event.scheduledDate}">Scheduled date</span>
     <div id="eventAttribute">Due Date</div>
     <span th:text="${event.dueDate}">Due date</span>
+    <div id="eventAttribute">Event Details</div>
+
+    <a th:href="@{/eventDetails(id=${event.id})}"> Event Details</a>
     <div id="eventSeparator"></div>
 
 </div>

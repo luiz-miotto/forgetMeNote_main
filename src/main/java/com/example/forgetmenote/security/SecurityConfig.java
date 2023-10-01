@@ -42,6 +42,7 @@ public class SecurityConfig {
                     authorizeConfig.requestMatchers("/home").permitAll();
                     authorizeConfig.requestMatchers("/signUpForm").permitAll();
                     authorizeConfig.requestMatchers("/login").permitAll();
+                    authorizeConfig.requestMatchers("/ex/foos").permitAll();
                     authorizeConfig.anyRequest().authenticated();
                 })
                 .formLogin().loginPage("/login")

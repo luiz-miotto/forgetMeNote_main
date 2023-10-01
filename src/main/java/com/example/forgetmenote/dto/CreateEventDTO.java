@@ -7,6 +7,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.OneToMany;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -31,6 +32,18 @@ public class CreateEventDTO {
     }
 
     public CreateEventDTO(){
+        this.attendees = new ArrayList<>();
+    }
 
+    public void setAttendee(User user){
+        this.attendees.add(user);
+        for(User attendee: attendees){
+            System.out.println(attendee.getName());
+        }
+
+    }
+
+    public List<User> getAttendees(){
+        return this.attendees;
     }
 }
