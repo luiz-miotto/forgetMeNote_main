@@ -2,8 +2,11 @@ package com.example.forgetmenote.models;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,16 +21,22 @@ public class Event {
 
     private String name;
     private String description;
-    private int dateCreated;
+    @Column(name = "date_created")
+    @Temporal(TemporalType.TIMESTAMP) //this tells postgres that I want the date and time stored instead of just DATE or just TIME
+    private java.util.Date createdDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private String scheduledDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private String dueDate;
     private int importance;
     private Boolean active;
-   // @OneToMany
+
+    @ElementCollection
     private List<String> attendees;
 
     @Enumerated(EnumType.STRING)
     private Event.EventType eventType;
+
 
     public enum EventType{
         WORK_EVENT,
@@ -36,8 +45,8 @@ public class Event {
 
     }
     public Event(){
-        this.dateCreated = 0;
-        this.attendees = new ArrayList<>();
+        this.createdDate = new Date();
+        //this.attendees = new ArrayList<>();
         this.active = true;
     }
 
@@ -47,12 +56,12 @@ public class Event {
 
     public Event(String name){
         this.name = name;
-        this.attendees = new ArrayList<>();
+        //this.attendees = new ArrayList<>();
     }
     public Event(String name, String description){
         this.name = name;
         this.description = description;
-        this.attendees = new ArrayList<>();
+        //this.attendees = new ArrayList<>();
     }
 
     public String getName(){
@@ -86,7 +95,7 @@ public class Event {
 
     public void setAttendee(String username){
         System.out.println("user was added to event");
-        this.attendees.add(username);
+        //this.attendees.add(username);
     }
 
     public List<String> getAttendees(){

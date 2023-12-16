@@ -36,3 +36,18 @@ SEPT 20 23:
 * need to figure out why pressing the activate/deactivate button does not properly redirect the user since the
 href/url that is generated on the button seems to match the id
     I'm assuming something wrong is happening in the post request and the correct url is not being sent
+
+OCT 28 23:
+* Need to implement an ajax call in the eventDetailController to do allwo for the active state of event to be updated
+upon clicking on the active/deactivate button'
+
+NOV 25 23
+* A potential slight pivot for this app would be to make the notes/reminders that people leave public, partially public,
+or at the very least use it to gather data that on what people need notes/scheduling reminders for.
+
+If notes/reminders are made public, the potential would be that other usesrs can leave useful comments regarding those tasks.
+This could potentially help solve the problem of "you don't know what you don't know" since users would be given helpful
+instructions without asking for them or even knowing they should ask for it.
+
+If notes/events/reminders are made public or data is shared, that data can be used for targeted marketing or the data can
+be used intelligently in other ways, such as gathering info on what people need help reminding of.for

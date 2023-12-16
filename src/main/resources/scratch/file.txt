@@ -1,0 +1,3 @@
+@Column(name = "date_created")
+    @Temporal(TemporalType.TIMESTAMP) //this tells postgres that I want the date and time stored instead of just DATE or just TIME
+    private java.util.Date createdDate;

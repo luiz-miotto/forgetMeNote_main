@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import com.example.forgetmenote.repositories.EventRepository;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,6 +58,8 @@ public class EventCreatorController {
     @PostMapping("/createEvent")
     public String createEvent(@Valid Event event, Model model, CreateEventDTO createEventDTO,User user){
         model.addAttribute("event", event);
+        Date currentTimeAndDate = new Date();
+
         eventRepository.save(event);
         System.out.println(event.getName());
         // For each attendee, we are creating a new record of events_with_users in our database

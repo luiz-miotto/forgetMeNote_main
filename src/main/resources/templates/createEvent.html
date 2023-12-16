@@ -17,6 +17,7 @@
 </div>
 -->
 
+
 <form method="POST" th:object="${event}" th:action="@{/createEvent}">
 
     <select name="eventType">
@@ -32,10 +33,10 @@
     <input type="text" th:field="*{description}">
     <div></div>
     <label>Scheduled Date</label>
-    <input type="text" th:field="*{scheduledDate}">
+    <input type="date" th:field="*{scheduledDate}">
     <div></div>
     <label>Due Date</label>
-    <input type="text" th:field="*{dueDate}">
+    <input type="date" th:field="*{dueDate}">
 
     <div name="Users" >
         <li th:each="user : ${userList}">
