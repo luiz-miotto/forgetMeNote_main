@@ -43,9 +43,13 @@ public class SecurityConfig {
                     authorizeConfig.requestMatchers("/signUpForm").permitAll();
                     authorizeConfig.requestMatchers("/login").permitAll();
                     authorizeConfig.requestMatchers("/ex/foos").permitAll();
+                    authorizeConfig.requestMatchers("/api/v1/publish").permitAll();
+                    authorizeConfig.requestMatchers("/emailing/sendEmail").permitAll();
                     authorizeConfig.anyRequest().authenticated();
                 })
                 .formLogin().loginPage("/login")
+                .and()
+                .csrf().ignoringRequestMatchers("/emailing/sendEmail")
                 .and()
                 .build();
     }

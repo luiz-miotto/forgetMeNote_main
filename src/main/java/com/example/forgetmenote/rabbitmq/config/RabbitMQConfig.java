@@ -34,4 +34,6 @@ public class RabbitMQConfig {
                 .to(exchange())
                 .with(routingKey);
     }
+
+
 }

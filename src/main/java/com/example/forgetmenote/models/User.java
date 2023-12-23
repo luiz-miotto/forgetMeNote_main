@@ -1,5 +1,6 @@
 package com.example.forgetmenote.models;
 
+import com.example.forgetmenote.dto.UserCreateEventDTO;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -41,6 +42,7 @@ public class User {
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
+
     public User(){
 
     }
@@ -61,6 +63,13 @@ public class User {
         this.password = password;
     }
 
+    public User(UserCreateEventDTO userCreateEventDTO){
+        this.name = userCreateEventDTO.getName();
+        this.email = userCreateEventDTO.getEmail();
+        this.username = userCreateEventDTO.getUsername();
+        this.id = userCreateEventDTO.getId();
+    }
+
     public void setId(long id){
         this.id = id;
     }
@@ -68,4 +77,5 @@ public class User {
     public long getId(){
         return this.id;
     }
+
 }

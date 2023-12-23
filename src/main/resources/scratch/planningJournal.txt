@@ -51,3 +51,15 @@ instructions without asking for them or even knowing they should ask for it.
 
 If notes/events/reminders are made public or data is shared, that data can be used for targeted marketing or the data can
 be used intelligently in other ways, such as gathering info on what people need help reminding of.for
+
+December 17 23:
+* Questions regarding RabbitMQ implementation:
+If there is a consumer and a publisher, would the publisher, in the case of this app, be the eventCreator and the GET's for list and individual event details?
+    * If so, then in the case of the eventCreator, when exactly would the message be sent to Rabbitmq? When the user submits the new event? Would even
+
+December 18 23:
+* look at this article in regards to connectionfactory (it looks like a connection factory is required but I don't have one) https://spring.io/guides/gs/messaging-rabbitmq/
+
+December 23 23:
+* need to create database for emails sent out as well as denormalized database linking users to emails and sms messages sent out
+    * columns for userNotificationHistory: userId, username, emailAddress, phoneNumber, messageId, messageTime, notificationType

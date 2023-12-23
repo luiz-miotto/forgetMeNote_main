@@ -1,12 +1,17 @@
 package com.example.forgetmenote.web.controllers;
 
+import com.example.forgetmenote.Emailing.EmailDetails;
+import com.example.forgetmenote.Emailing.EmailService;
 import com.example.forgetmenote.dto.CreateEventDTO;
 import com.example.forgetmenote.models.Event;
 import com.example.forgetmenote.models.EventsWithUsers;
 import com.example.forgetmenote.models.User;
+import com.example.forgetmenote.rabbitmq.RabbitEventMessagingService;
+import com.example.forgetmenote.rabbitmq.publisher.RabbitMQProducer;
 import com.example.forgetmenote.repositories.EventsWithUsersRepository;
 import com.example.forgetmenote.repositories.UserRepository;
 import jakarta.validation.Valid;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
@@ -24,6 +29,10 @@ public class EventCreatorController {
 
     private final UserRepository userRepository;
     private final EventsWithUsersRepository eventsWithUsersRepository;
+    private RabbitTemplate rabbitTemplate;
+
+    @Autowired
+    private EmailService emailService;
 
     public EventCreatorController(EventRepository eventRepository, UserRepository userRepository,
                                   EventsWithUsersRepository eventsWithUsersRepository){
@@ -77,6 +86,18 @@ public class EventCreatorController {
             }
             eventsWithUsersRepository.save(eventsWithUsers);
         }
+        //this.rabbitTemplate = new RabbitTemplate();
+        //RabbitMQProducer producer = new RabbitMQProducer(rabbitTemplate);
+        //producer.sendMessage(event.getName());
+      //  RabbitEventMessagingService rabbitEventMessagingService = new RabbitEventMessagingService(rabbitTemplate);
+       // rabbitEventMessagingService.sendEventName(event.getName());
+
+        EmailDetails emailDetails = new EmailDetails();
+        emailDetails.setAttachment("nothing");
+        emailDetails.setRecipient("luiz.l.miotto94@gmail.com");
+        emailDetails.setSubject(event.getName());
+        emailDetails.setMessageBody("Event Description: " + event.getDescription());
+        emailService.sendSimpleEmail(emailDetails);
         return "redirect:/schedule";
     }
 
