@@ -63,3 +63,5 @@ December 18 23:
 December 23 23:
 * need to create database for emails sent out as well as denormalized database linking users to emails and sms messages sent out
     * columns for userNotificationHistory: userId, username, emailAddress, phoneNumber, messageId, messageTime, notificationType
+    * For userNotificationDetails (this is an additional model/database) we will also track notificaiton preferences as well as "opt out" status of the user
+    * Message should have

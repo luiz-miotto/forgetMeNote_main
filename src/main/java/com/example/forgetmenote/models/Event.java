@@ -1,5 +1,6 @@
 package com.example.forgetmenote.models;
 
+import com.example.forgetmenote.dto.CreateEventDTO;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -62,6 +63,15 @@ public class Event {
         this.name = name;
         this.description = description;
         //this.attendees = new ArrayList<>();
+    }
+
+    public Event(CreateEventDTO createEventDTO){
+        this.name = createEventDTO.getName();
+        this.description = createEventDTO.getDescription();
+        this.createdDate = createEventDTO.getCreatedDate();
+        this.scheduledDate = createEventDTO.getScheduledDate();
+        this.dueDate = createEventDTO.getDueDate();
+        this.attendees = createEventDTO.getAttendees();
     }
 
     public String getName(){

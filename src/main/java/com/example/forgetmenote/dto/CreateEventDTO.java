@@ -8,18 +8,19 @@ import jakarta.persistence.OneToMany;
 import lombok.Data;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Data
 public class CreateEventDTO {
     private String name;
     private String description;
-    private int dateCreated;
+    private Date createdDate;
     private String scheduledDate;
     private String dueDate;
     private int importance;
     @OneToMany
-    private List<User> attendees;
+    private List<String> attendees;
 
     @Enumerated(EnumType.STRING)
     private Event.EventType eventType;
@@ -35,15 +36,22 @@ public class CreateEventDTO {
         this.attendees = new ArrayList<>();
     }
 
-    public void setAttendee(User user){
-        this.attendees.add(user);
-        for(User attendee: attendees){
-            System.out.println(attendee.getName());
-        }
+    public CreateEventDTO(Event event){
+        this.name = event.getName();
+        this.description = event.getDescription();
+        this.createdDate = event.getCreatedDate();
+        this.scheduledDate = event.getScheduledDate();
+        this.dueDate = event.getDueDate();
+        this.attendees = event.getAttendees();
 
     }
 
-    public List<User> getAttendees(){
+    public void setAttendee(String user){
+        this.attendees.add(user);
+
+    }
+
+    public List<String> getAttendees(){
         return this.attendees;
     }
 }

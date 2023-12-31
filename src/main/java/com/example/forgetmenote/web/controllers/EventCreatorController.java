@@ -3,14 +3,18 @@ package com.example.forgetmenote.web.controllers;
 import com.example.forgetmenote.Emailing.EmailDetails;
 import com.example.forgetmenote.Emailing.EmailService;
 import com.example.forgetmenote.dto.CreateEventDTO;
+import com.example.forgetmenote.messaging.MessageDetails;
 import com.example.forgetmenote.models.Event;
 import com.example.forgetmenote.models.EventsWithUsers;
 import com.example.forgetmenote.models.User;
 import com.example.forgetmenote.rabbitmq.RabbitEventMessagingService;
 import com.example.forgetmenote.rabbitmq.publisher.RabbitMQProducer;
 import com.example.forgetmenote.repositories.EventsWithUsersRepository;
+import com.example.forgetmenote.repositories.MessageDetailsRepository;
 import com.example.forgetmenote.repositories.UserRepository;
 import jakarta.validation.Valid;
+import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
+import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -29,17 +33,22 @@ public class EventCreatorController {
 
     private final UserRepository userRepository;
     private final EventsWithUsersRepository eventsWithUsersRepository;
+    private final MessageDetailsRepository messageDetailsRepository;
     private RabbitTemplate rabbitTemplate;
+    private ConnectionFactory connectionFactory;
 
     @Autowired
     private EmailService emailService;
 
     public EventCreatorController(EventRepository eventRepository, UserRepository userRepository,
-                                  EventsWithUsersRepository eventsWithUsersRepository){
+                                  EventsWithUsersRepository eventsWithUsersRepository, MessageDetailsRepository messageDetailsRepository){
         this.eventRepository = eventRepository;
         this.userRepository = userRepository;
         this.eventsWithUsersRepository = eventsWithUsersRepository;
+        this.messageDetailsRepository = messageDetailsRepository;
     }
+
+
 
     @ModelAttribute
     public Event showEvent(){
@@ -48,7 +57,7 @@ public class EventCreatorController {
 
     @GetMapping("/createEvent")
     public String showEventForm(Model model){
-        model.addAttribute("event", new Event());
+        model.addAttribute("event", new CreateEventDTO());
         List<User> userList = userRepository.findAll();
         for (User user: userList){
             System.out.println(user.getUsername());
@@ -65,10 +74,10 @@ public class EventCreatorController {
     //handles the post request and executes the function when hitting the submit form
     //also redirects the user to the schedule page after the form is submitted
     @PostMapping("/createEvent")
-    public String createEvent(@Valid Event event, Model model, CreateEventDTO createEventDTO,User user){
-        model.addAttribute("event", event);
+    public String createEvent( Model model, CreateEventDTO createEventDTO,User user){
+        model.addAttribute("event", createEventDTO);
         Date currentTimeAndDate = new Date();
-
+        Event event = new Event(createEventDTO);
         eventRepository.save(event);
         System.out.println(event.getName());
         // For each attendee, we are creating a new record of events_with_users in our database
@@ -86,18 +95,28 @@ public class EventCreatorController {
             }
             eventsWithUsersRepository.save(eventsWithUsers);
         }
-        //this.rabbitTemplate = new RabbitTemplate();
-        //RabbitMQProducer producer = new RabbitMQProducer(rabbitTemplate);
-        //producer.sendMessage(event.getName());
-      //  RabbitEventMessagingService rabbitEventMessagingService = new RabbitEventMessagingService(rabbitTemplate);
-       // rabbitEventMessagingService.sendEventName(event.getName());
+        this.connectionFactory = new CachingConnectionFactory();
+        this.rabbitTemplate = new RabbitTemplate(connectionFactory);
+        RabbitMQProducer producer = new RabbitMQProducer(rabbitTemplate);
+        producer.sendMessage(event.getName());
+        RabbitEventMessagingService rabbitEventMessagingService = new RabbitEventMessagingService(rabbitTemplate);
+        rabbitEventMessagingService.sendEventName(event.getName());
+
+
 
         EmailDetails emailDetails = new EmailDetails();
         emailDetails.setAttachment("nothing");
         emailDetails.setRecipient("luiz.l.miotto94@gmail.com");
         emailDetails.setSubject(event.getName());
         emailDetails.setMessageBody("Event Description: " + event.getDescription());
+        MessageDetails messageDetails = new MessageDetails(emailDetails);
+        messageDetails.setSenderId(420);
+        messageDetailsRepository.save(messageDetails);
+
+
         emailService.sendSimpleEmail(emailDetails);
+
+
         return "redirect:/schedule";
     }
 
