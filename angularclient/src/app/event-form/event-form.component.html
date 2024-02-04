@@ -21,6 +21,62 @@
                required #description="ngModel">
       </div>
       <div [hidden]="!description.pristine" class="alert alert-danger">Description is required</div>
+
+      <div>
+        <h4>What type of event is this?</h4>
+        <mat-form-field>
+          <mat-label>Event Type</mat-label>
+          <mat-select [(ngModel)]="event.eventTypeProper" name="eventType">
+          @for (eventType of eventTypes; track eventType){
+          <mat-option [value]="eventType.value">{{eventType.viewValue}}</mat-option>
+          }
+          </mat-select>
+        </mat-form-field>
+        <p> Event type: {{selectedEventType}} </p>
+      </div>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Choose a start date</mat-label>
+        <input matInput [matDatepicker]="picker" [(ngModel)]="event.scheduledDate"
+               class="form-control"
+               id="scheduleDate"
+               name="scheduledDate"
+               placeholder="Scheduled Date"
+               required #scheduledDate="ngModel">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matSuffix [for]="picker">
+        </mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+
+      <mat-form-field appearance="fill">
+        <mat-label>Choose an end date</mat-label>
+        <input matInput [matDatepicker]="picker2" [(ngModel)]="event.dueDate"
+               class="form-control"
+               id="dueDate"
+               name="dueDate"
+               placeholder="Due Date"
+               required #dueDate="ngModel">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matSuffix [for]="picker2">
+        </mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+      </mat-form-field>
+      <!--
+
+
+      <div class="form-group">
+        <mat-form-field appearance="outline">
+          <input matInput formControlName="releasedAt" [matDatepicker]="releasedAtPicker">
+          <mat-datepicker-toggle matSuffix [for]="releasedAtPicker">
+          </mat-datepicker-toggle>
+          <mat-datepicker #releasedAtPicker>
+          </mat-datepicker>
+        </mat-form-field>
+      </div>
+      -->
+
       <!--
       <div class="form-group">
         <label for="email">Email</label>

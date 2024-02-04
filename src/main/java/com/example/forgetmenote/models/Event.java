@@ -3,6 +3,7 @@ package com.example.forgetmenote.models;
 import com.example.forgetmenote.dto.CreateEventDTO;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
@@ -45,10 +46,12 @@ public class Event {
         SOCIAL_EVENT,
 
     }
+
     public Event(){
         this.createdDate = new Date();
         //this.attendees = new ArrayList<>();
         this.active = true;
+        this.eventType = EventType.TASK;
     }
 
     public Event(Event.EventType type){
@@ -63,6 +66,20 @@ public class Event {
         this.name = name;
         this.description = description;
         //this.attendees = new ArrayList<>();
+    }
+
+    public Event(String name, String description, String scheduledDate){
+        this.name = name;
+        this.description = description;
+        this.scheduledDate = scheduledDate;
+    }
+
+    public Event (String name, String description, String scheduledDate, String dueDate, EventType eventType){
+        this.name = name;
+        this.description = description;
+        this.scheduledDate = scheduledDate;
+        this.dueDate = dueDate;
+        this.eventType = eventType;
     }
 
     public Event(CreateEventDTO createEventDTO){

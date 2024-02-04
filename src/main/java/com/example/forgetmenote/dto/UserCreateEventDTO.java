@@ -1,9 +1,7 @@
 package com.example.forgetmenote.dto;
 
 import com.example.forgetmenote.models.User;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

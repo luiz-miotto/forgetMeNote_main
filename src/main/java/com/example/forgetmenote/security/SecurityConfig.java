@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
 
 
 import static org.springframework.security.config.Customizer.withDefaults;
@@ -37,6 +38,9 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         return http
+                .cors(httpSecurityCorsConfigurer -> //this is effectively disabling cors so that my Angular requests dont get blocked
+                        httpSecurityCorsConfigurer.configurationSource(request ->
+                                new CorsConfiguration().applyPermitDefaultValues()))
                 .authorizeHttpRequests(authorizeConfig ->{
                     authorizeConfig.requestMatchers("/").permitAll();
                     authorizeConfig.requestMatchers("/home").permitAll();
@@ -45,12 +49,19 @@ public class SecurityConfig {
                     authorizeConfig.requestMatchers("/ex/foos").permitAll();
                     authorizeConfig.requestMatchers("/api/v1/publish").permitAll();
                     authorizeConfig.requestMatchers("/emailing/sendEmail").permitAll();
+                    authorizeConfig.requestMatchers("/events").permitAll();
+                    authorizeConfig.requestMatchers("/addEvent").permitAll();
+                    authorizeConfig.requestMatchers("/getUserList").permitAll();
                     authorizeConfig.anyRequest().authenticated();
                 })
-                .formLogin().loginPage("/login")
+               .formLogin().loginPage("/login") //disabled formlogin since angular requests were getting caught in them
                 .and()
-                .csrf().ignoringRequestMatchers("/emailing/sendEmail")
-                .and()
+                .csrf(csrf -> {
+                    csrf.ignoringRequestMatchers("/emailing/sendEmail");
+                    csrf.ignoringRequestMatchers("/events"); //having csrf ignore requests from "/events" since this is where front end/Angular sends
+                })
+                //.csrf().ignoringRequestMatchers("/emailing/sendEmail")
+                //.and()
                 .build();
     }
 
