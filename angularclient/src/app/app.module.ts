@@ -15,6 +15,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MatSelectModule} from '@angular/material/select';
 import { UserListComponent } from './user-list/user-list.component';
+import {UserListService} from "./service/user-list.service";
 
 
 
@@ -39,7 +40,7 @@ import { UserListComponent } from './user-list/user-list.component';
     ReactiveFormsModule,
 
   ],
-  providers: [EventService],
+  providers: [EventService, UserListService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

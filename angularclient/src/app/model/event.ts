@@ -11,4 +11,5 @@ export class Event {
   scheduledDate: string;
   dueDate: string;
   eventTypeProper: EventType;
+  attendees: string[];
 }

@@ -65,3 +65,25 @@ December 23 23:
     * columns for userNotificationHistory: userId, username, emailAddress, phoneNumber, messageId, messageTime, notificationType
     * For userNotificationDetails (this is an additional model/database) we will also track notificaiton preferences as well as "opt out" status of the user
     * Message should have
+
+January 27 24:
+* I'm a certain crossroads. I have been trying to implement angualr as the front end of my app. The benefits are that this allows for the html to redendered client side instead of server side, which then means I can make the app Restful
+which then means I can use async methods in the app. However, angular has been proving to be particularly painful to implement. Currently I need to redirect the sign in URL but I am finding some resistance on this.
+
+January 28 24:
+* I was successfully able to get POST requests, i.e. creating a new event, to work with Angular front end. However, I did have to severly strip down Sprng security config: had to remove loginForm(***this might not have been needed!), allow "/events"
+through csrf and had to disable cors
+* I think going forward I will continue working on this app with a stripped down security, but eventually I will return to implementing security to it.
+* really useful info here for when I return https://www.reddit.com/r/Angular2/comments/94nrjk/http_failure_response_for_httplocalhost4200login/
+* additionally, need to make sure that the next versions used in whatever tutorial I find for Angular v Spring security have some parity with the versions used in this software
+
+January 28 24 Note 2:
+* I'm not happy with the fact that I had to strip spring security as for all purposes, security is gone, since no login occurs.
+
+January 28 24 Note 3:
+*Final note for the day: all in all, having the stripped down version of security in order to allow for Angular is not that bad. Old server-side redended client still works, i.e. localhost:8080, so security can still be demonstrated via that client instead
+
+
+January 30 24:
+* was able to add scheduledDate date picker for the eventCreator form. Now I need to add the datepicker for dueDate maybe(?) see this article for potential issue https://stackoverflow.com/questions/74775898/matdatepicker-can-only-be-associated-with-a-single-input
+* Additionally, I need to correct the formatting that the date is currently being saved with

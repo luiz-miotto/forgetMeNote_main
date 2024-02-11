@@ -63,6 +63,28 @@
         </mat-datepicker-toggle>
         <mat-datepicker #picker2></mat-datepicker>
       </mat-form-field>
+
+      <div>
+
+        <label for="selectedUsers">Select Users</label>
+        <select multiple formControlName="selectedUsers" id="selectedUsers" [(ngModel)]="event.attendees">
+          <option *ngFor="let user of users" [value]="user.username">{{ user.username }}</option>
+        </select>
+
+      </div>
+
+      <div>
+        <h4>Attendees:</h4>
+        <mat-form-field>
+          <mat-label>Attendee</mat-label>
+          <mat-select [(ngModel)]="users" name="eventType">
+            @for (user of users; track user){
+            <mat-option [value]="user.username">{{user.username}}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+        <p> Event type: {{selectedEventType}} </p>
+      </div>
       <!--
 
 
