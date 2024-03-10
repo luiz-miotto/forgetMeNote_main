@@ -1,10 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card bg-dark my-5">
+        <div class="card-body">
+          <h2 class="card-title text-center text-white py-3">{{ title }}</h2>
+          <section class="header-links">
+              <button routerLink="/events" class="btn btn-info" >List Events</button>
+              <button routerLink="/eventForm" routerLinkActive="active"> Click here to create event </button>
+              <button routerLink="/userList" class="btn btn-info"> View Users</button>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<router-outlet></router-outlet>
+<div class="card my-5">
+  <div class="card-body">
+    <table class="table-content">
+      <tr id="event-list">
+        <div id="event-list-headers">
+        <th >Name</th>
+        <th >Description</th>
+        <th >Scheduled Date</th>
+        <th >Due Date</th>
+        </div>
+        <section class="results">
+          <app-event
+            *ngFor="let event of eventList"
+            [event]="event">
+          </app-event>
+        </section>
+      </tr>
+    </table>
+  </div>
+</div>
+

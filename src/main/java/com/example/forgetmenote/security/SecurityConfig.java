@@ -50,15 +50,16 @@ public class SecurityConfig {
                     authorizeConfig.requestMatchers("/api/v1/publish").permitAll();
                     authorizeConfig.requestMatchers("/emailing/sendEmail").permitAll();
                     authorizeConfig.requestMatchers("/events").permitAll();
-                    authorizeConfig.requestMatchers("/addEvent").permitAll();
+                    authorizeConfig.requestMatchers("/eventForm").permitAll();
                     authorizeConfig.requestMatchers("/getUserList").permitAll();
                     authorizeConfig.anyRequest().authenticated();
                 })
-               .formLogin().loginPage("/login") //disabled formlogin since angular requests were getting caught in them
-                .and()
+               //.formLogin().loginPage("/login") //disabled formlogin since angular requests were getting caught in them
+                //.and()
                 .csrf(csrf -> {
                     csrf.ignoringRequestMatchers("/emailing/sendEmail");
                     csrf.ignoringRequestMatchers("/events"); //having csrf ignore requests from "/events" since this is where front end/Angular sends
+                    csrf.ignoringRequestMatchers("/eventForm");
                 })
                 //.csrf().ignoringRequestMatchers("/emailing/sendEmail")
                 //.and()

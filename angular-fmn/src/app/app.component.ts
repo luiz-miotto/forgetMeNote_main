@@ -8,7 +8,6 @@ import {HomeComponent} from "./home/home.component";
   standalone: true,
   imports: [CommonModule, RouterOutlet, HomeComponent],
   template: `
-
   <app-home></app-home>
   `,
   styleUrl: './app.component.css'

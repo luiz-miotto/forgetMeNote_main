@@ -34,14 +34,17 @@ public class ForgetMeNoteApplication implements CommandLineRunner {
 
     public static void main(String[] args) throws Exception {
         SpringApplication.run(ForgetMeNoteApplication.class, args);
-
+       // Event myEvent = new Event("name of event","descriptoin of event","today","tomorrow","Social event");
+        //System.out.println(myEvent.getEventType());
     }
 
     @Override
     public void run(String... args) throws Exception {
+
+
         /*
-       List<Event> eventList = eventRepository.findAll();
-       for(Event event: eventList ){
+       List<EventInterface> eventList = eventRepository.findAll();
+       for(EventInterface event: eventList ){
            System.out.println(event.getName());
        }
         */

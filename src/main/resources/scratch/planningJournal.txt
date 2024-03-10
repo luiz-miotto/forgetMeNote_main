@@ -87,3 +87,8 @@ January 28 24 Note 3:
 January 30 24:
 * was able to add scheduledDate date picker for the eventCreator form. Now I need to add the datepicker for dueDate maybe(?) see this article for potential issue https://stackoverflow.com/questions/74775898/matdatepicker-can-only-be-associated-with-a-single-input
 * Additionally, I need to correct the formatting that the date is currently being saved with
+
+February 28th 24:
+* After refactoring my angular UI, I am encoutnering issues with my request to create a new event hitting 403's
+* interestengily, my old UI will not hit a 403 or require the login page to be disabled but the new UI does
+* the origin of the request is the same for both UI's so I suspect that somethign else in the request is the issue

@@ -108,7 +108,7 @@ public class EventCreatorController {
         emailDetails.setAttachment("nothing");
         emailDetails.setRecipient("luiz.l.miotto94@gmail.com");
         emailDetails.setSubject(event.getName());
-        emailDetails.setMessageBody("Event Description: " + event.getDescription());
+        emailDetails.setMessageBody("EventInterface Description: " + event.getDescription());
         MessageDetails messageDetails = new MessageDetails(emailDetails);
         messageDetails.setSenderId(420);
         messageDetailsRepository.save(messageDetails);

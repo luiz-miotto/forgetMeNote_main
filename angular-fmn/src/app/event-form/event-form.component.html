@@ -1,10 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
 <body>
-$END$
+<section class="listing-apply">
+  <h2 class="section-heading">Create new event</h2>
+  <form [formGroup]="applyForm" (submit)="submitEvent()">
+    <label for="name">Event Name</label>
+    <input id="name" type="text" formControlName="name">
+
+    <label for="description"> Event Description</label>
+    <input id="description" type="text" formControlName="description">
+    <select #event (change)="selectEventType(event.value)">
+      <option default>What type of event is this?</option>
+      <option>Work Event</option>
+      <option>Social Event</option>
+      <option>Task</option>
+    </select>
+    <mat-form-field>
+      <!-- Date picker basic implementation -->
+      <input matInput [matDatepicker]="datepicker" formControlName="scheduledDate">
+      <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+      <mat-datepicker #datepicker ></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+      <!-- Date picker basic implementation -->
+      <input matInput [matDatepicker]="datepicker2" formControlName="dueDate">
+      <mat-datepicker-toggle matSuffix [for]="datepicker2"></mat-datepicker-toggle>
+      <mat-datepicker #datepicker2 ></mat-datepicker>
+    </mat-form-field>
+
+    <div>
+
+      <label for="selectedUsers">Select Users</label>
+      <select  #userSelect (change)="selectUsers(userSelect.value)" multiple formControlName="attendees" id="selectedUsers" >
+        <option *ngFor="let user of userList" [value]="user.username">{{ user.username }}</option>
+      </select>
+
+    </div>
+
+    <button type="submit" class="primary">Apply now</button>
+  </form>
+</section>
+<router-outlet></router-outlet>
 </body>
 </html>

@@ -30,9 +30,9 @@ public class EventDetailsController {
     /*
 
     @ModelAttribute(name = "event")
-    public Event event(String longId){
-        Optional<Event> event = eventRepository.findById(longId);
-         Event actualEvent = event.get();
+    public EventInterface event(String longId){
+        Optional<EventInterface> event = eventRepository.findById(longId);
+         EventInterface actualEvent = event.get();
         return actualEvent;
     }
 
@@ -50,7 +50,7 @@ public class EventDetailsController {
 
     @PostMapping("/cancelEvent")
     public String cancelEvent(Model model, HttpSession httpSession){
-       // Event actualEvent = (Event)model.asMap().get("event");
+       // EventInterface actualEvent = (EventInterface)model.asMap().get("event");
         Event actualEvent = Event.class.cast(httpSession.getAttribute("sessionEvent"));
        System.out.println("here is the post event " + actualEvent.getName());
         actualEvent.setActive(false);
@@ -64,7 +64,7 @@ public class EventDetailsController {
 
     @PostMapping("/activateEvent")
     public String activateEvent(Model model, HttpSession httpSession){
-        // Event actualEvent = (Event)model.asMap().get("event");
+        // EventInterface actualEvent = (EventInterface)model.asMap().get("event");
         Event actualEvent = Event.class.cast(httpSession.getAttribute("sessionEvent"));
        System.out.println("here is the post event " + actualEvent.getName());
         System.out.println("here is the id " + actualEvent.getId());

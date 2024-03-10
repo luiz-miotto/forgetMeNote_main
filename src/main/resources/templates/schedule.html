@@ -12,16 +12,16 @@
     <text th:field="*{event}"
            th:value="${name}"/>
     <div id="eventAttribute">Name</div>
-    <span th:text="${event.name}">Event Name</span><br/>
+    <span th:text="${event.name}">EventInterface Name</span><br/>
     <div id="eventAttribute">Description</div>
-    <span th:text="${event.description}">Event Description</span>
+    <span th:text="${event.description}">EventInterface Description</span>
     <div id="eventAttribute">Scheduled Date</div>
     <span th:text="${event.scheduledDate}">Scheduled date</span>
     <div id="eventAttribute">Due Date</div>
     <span th:text="${event.dueDate}">Due date</span>
-    <div id="eventAttribute">Event Details</div>
+    <div id="eventAttribute">EventInterface Details</div>
 
-    <a th:href="@{/eventDetails(id=${event.id})}"> Event Details</a>
+    <a th:href="@{/eventDetails(id=${event.id})}"> EventInterface Details</a>
     <div id="eventSeparator"></div>
 
 </div>
@@ -30,7 +30,7 @@
 <label>Description</label>
 
 <input type="text" th:field="*{name}"/>
-<button>Submit Event</button>
+<button>Submit EventInterface</button>
 </form>
 
 </body>

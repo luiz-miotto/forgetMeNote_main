@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Create Event</title>
+    <title>Create EventInterface</title>
     <link rel="stylesheet" th:href="@{/style.css}">
 </head>
 <body>
@@ -13,7 +13,7 @@
     <input th:field="*{event.eventType}" type="checkbox"
            th:value="${event.eventType}"/>
 
-    <span th:text="${event.eventType}">Event Name</span><br/>
+    <span th:text="${event.eventType}">EventInterface Name</span><br/>
 </div>
 -->
 
@@ -26,10 +26,10 @@
     </select>
 
     <div></div>
-    <label>Event Name</label>
+    <label>EventInterface Name</label>
     <input type="text" th:field="*{name}">
     <div></div>
-    <label>Event Description</label>
+    <label>EventInterface Description</label>
     <input type="text" th:field="*{description}">
     <div></div>
     <label>Scheduled Date</label>
@@ -47,7 +47,7 @@
         </li>
     </div>
 
-    <button>Submit Event</button>
+    <button>Submit EventInterface</button>
 </form>
 
 

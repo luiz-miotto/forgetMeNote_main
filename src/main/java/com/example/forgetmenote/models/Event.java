@@ -42,8 +42,8 @@ public class Event {
 
     public enum EventType{
         WORK_EVENT,
-        TASK,
         SOCIAL_EVENT,
+        TASK,
 
     }
 
@@ -80,6 +80,14 @@ public class Event {
         this.scheduledDate = scheduledDate;
         this.dueDate = dueDate;
         this.eventType = eventType;
+    }
+
+    public Event (String name, String description, String scheduledDate, String dueDate, String eventType){
+        this.name = name;
+        this.description = description;
+        this.scheduledDate = scheduledDate;
+        this.dueDate = dueDate;
+        this.eventType = EventType.WORK_EVENT;
     }
 
     public Event(CreateEventDTO createEventDTO){

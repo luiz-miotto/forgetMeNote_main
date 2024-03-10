@@ -3,7 +3,7 @@ Top level overview of product:
 * Program will be used to create events, invite other users to events, and send reminders of events based on customizable logic, i.e. user has some control of when relative to the date of the event reminders will be sent out
 
 MVP:
-* Event database
+* EventInterface database
 * User database
 * Ability to create events via web
 * Ability to edit events via web
