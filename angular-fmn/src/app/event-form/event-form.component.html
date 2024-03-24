@@ -37,7 +37,7 @@
       <mat-checkbox matInput  formControlName="reminderScheduled" > Send reminder notification 15 minutes before event start to all attendees?</mat-checkbox>
     </div>
     <div>
-    <igx-time-picker #timePicker (change)="selectScheduledTime(timePicker.value)"[(ngModel)]="date" mode="dialog" [inputFormat]="'hh:mm'" formControlName="scheduledTime">
+    <igx-time-picker #timePicker (change)="selectScheduledTime(timePicker.value)" mode="dialog" [inputFormat]="'hh:mm'" formControlName="scheduledTime">
       <label igxLabel>Home Time </label>
       <igx-picker-toggle igxSuffix>
         <igx-icon>home</igx-icon>
