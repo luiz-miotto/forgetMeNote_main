@@ -18,10 +18,13 @@ public class MessageDetails {
 
     private String senderEmail;
     private long senderId;
+    private long recipientId;
+    private long eventId;
     private String recipientEmail;
     private String messageSubject;
     private String messageBody;
     private String attachment;
+    private String sendTime;
 
     public MessageDetails(EmailDetails emailDetails){
         this.messageBody = emailDetails.getMessageBody();

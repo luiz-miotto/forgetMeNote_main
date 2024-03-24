@@ -1,7 +1,7 @@
 import {Component, inject} from '@angular/core';
 import {ActivatedRoute, Router, RouterOutlet} from "@angular/router";
 import {EventService} from "../services/event.service";
-import {CommonModule, NgForOf} from "@angular/common";
+import {CommonModule, DatePipe, NgForOf} from "@angular/common";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {Event} from '../model/event-interface';
 import {MatDatepickerModule} from '@angular/material/datepicker';
@@ -12,16 +12,23 @@ import {MatInputModule} from "@angular/material/input";
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatButtonModule} from "@angular/material/button";
+import {MatCheckboxModule} from '@angular/material/checkbox';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {BrowserModule} from "@angular/platform-browser";
+import {BrowserModule, HammerModule} from "@angular/platform-browser";
 import {EventAttendee} from "../model/event-attendee";
 import {Observable} from "rxjs";
+import {
+  IGX_TIME_PICKER_DIRECTIVES,
+  IgxIconComponent,
+  IgxPickerToggleComponent,
+  IgxTimePickerComponent
+} from 'igniteui-angular';
 
 @Component({
   selector: 'app-event-form',
   standalone: true,
   imports: [
-    ReactiveFormsModule, RouterOutlet,  MatDatepickerModule,
+    ReactiveFormsModule, RouterOutlet, MatDatepickerModule,
     MatInputModule,
     MatNativeDateModule,
     MatFormFieldModule,
@@ -30,7 +37,10 @@ import {Observable} from "rxjs";
     MatDialogModule,
     MatButtonModule,
     MatButtonToggleModule,
-    NgForOf
+    MatCheckboxModule,
+    NgForOf,
+    IGX_TIME_PICKER_DIRECTIVES,
+    HammerModule, IgxTimePickerComponent, IgxPickerToggleComponent, IgxIconComponent,
   ],
   templateUrl: './event-form.component.html',
   styleUrl: './event-form.component.css'
@@ -44,18 +54,25 @@ export class EventFormComponent {
     userList: EventAttendee[];
     selectedUsers: string[];
     attendees: string[];
+    reminderScheduled: boolean;
+    scheduledTime: string | null;
+    date: Date = new Date();
+    datePipe: DatePipe;
+
 
     applyForm = new FormGroup({
       name: new FormControl(''),
       description: new FormControl(''),
       scheduledDate: new FormControl(''),
+      scheduledTime: new FormControl(''),
       dueDate: new FormControl(''),
-      attendees: new FormControl([])
+      attendees: new FormControl([]),
+      reminderScheduled: new FormControl(false),
     })
 
 
   constructor() {
-      this.event = new Event('','','','',);
+      this.event = new Event('','','','', '');
       this.router = new Router();
     this.eventService.getAllUsers().subscribe(data => {
       this.userList = data;
@@ -72,8 +89,10 @@ export class EventFormComponent {
       this.event.name = this.applyForm.value.name ?? '';
       this.event.description = this.applyForm.value.description ?? '';
       this.event.scheduledDate = this.applyForm.value.scheduledDate ?? '';
+      this.event.scheduledTime = this.applyForm.value.scheduledTime ?? '';
       this.event.dueDate = this.applyForm.value.dueDate ?? '';
       this.event.attendees = this.applyForm.value.attendees ?? [];
+      this.event.reminderScheduled = this.applyForm.value.reminderScheduled ?? false;
 
      this.eventService.submitEvent(this.event).subscribe(result => this.goToEventList());
   }
@@ -93,5 +112,15 @@ export class EventFormComponent {
 
   selectScheduleDate(value: string){
       this.event.scheduledDate = this.event.scheduledDate
+  }
+
+  scheduleReminder(value: boolean){
+      this.reminderScheduled = this.event.reminderScheduled
+  }
+
+  selectScheduledTime(value: string | Date){
+      let timeToString = this.datePipe.transform(value, 'hh:mm');
+      this.scheduledTime = timeToString;
+    console.log("here is time to string " + timeToString);
   }
 }

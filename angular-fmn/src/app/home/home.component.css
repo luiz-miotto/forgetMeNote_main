@@ -44,3 +44,8 @@
   border: 1px solid black;
   justify-content: space-between;
 }
+
+th{
+  width: 250px;
+  text-align: left;
+}

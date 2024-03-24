@@ -13,8 +13,12 @@ import com.example.forgetmenote.repositories.EventRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 @SpringBootApplication
 //@ComponentScan({"com.example.forgetmenote"})
@@ -34,8 +38,13 @@ public class ForgetMeNoteApplication implements CommandLineRunner {
 
     public static void main(String[] args) throws Exception {
         SpringApplication.run(ForgetMeNoteApplication.class, args);
-       // Event myEvent = new Event("name of event","descriptoin of event","today","tomorrow","Social event");
-        //System.out.println(myEvent.getEventType());
+        System.out.println("Beloved classic");
+        ScheduledExecutorService scheduledActivity = Executors.newScheduledThreadPool(1);
+        scheduledActivity.scheduleAtFixedRate(() -> {
+            LocalDateTime now = LocalDateTime.now();
+            System.out.println("time now is " + now);
+
+        }, 5, 5, TimeUnit.SECONDS);
     }
 
     @Override

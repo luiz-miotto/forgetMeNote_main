@@ -21,23 +21,30 @@
       <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
       <mat-datepicker #datepicker ></mat-datepicker>
     </mat-form-field>
-
     <mat-form-field>
       <!-- Date picker basic implementation -->
-      <input matInput [matDatepicker]="datepicker2" formControlName="dueDate">
+      <input matInput  [matDatepicker]="datepicker2" formControlName="dueDate">
       <mat-datepicker-toggle matSuffix [for]="datepicker2"></mat-datepicker-toggle>
       <mat-datepicker #datepicker2 ></mat-datepicker>
     </mat-form-field>
-
     <div>
-
       <label for="selectedUsers">Select Users</label>
       <select  #userSelect (change)="selectUsers(userSelect.value)" multiple formControlName="attendees" id="selectedUsers" >
         <option *ngFor="let user of userList" [value]="user.username">{{ user.username }}</option>
       </select>
-
     </div>
-
+    <div>
+      <mat-checkbox matInput  formControlName="reminderScheduled" > Send reminder notification 15 minutes before event start to all attendees?</mat-checkbox>
+    </div>
+    <div>
+    <igx-time-picker #timePicker (change)="selectScheduledTime(timePicker.value)"[(ngModel)]="date" mode="dialog" [inputFormat]="'hh:mm'" formControlName="scheduledTime">
+      <label igxLabel>Home Time </label>
+      <igx-picker-toggle igxSuffix>
+        <igx-icon>home</igx-icon>
+      </igx-picker-toggle>
+      <igx-hint>{{date.toLocaleString()}}</igx-hint>
+    </igx-time-picker>
+    </div>
     <button type="submit" class="primary">Apply now</button>
   </form>
 </section>

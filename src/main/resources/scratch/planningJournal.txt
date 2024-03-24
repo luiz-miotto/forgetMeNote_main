@@ -92,3 +92,15 @@ February 28th 24:
 * After refactoring my angular UI, I am encoutnering issues with my request to create a new event hitting 403's
 * interestengily, my old UI will not hit a 403 or require the login page to be disabled but the new UI does
 * the origin of the request is the same for both UI's so I suspect that somethign else in the request is the issue
+
+March 20th 24:
+* need to implement checkbox in the UI "Send Reminder 15 minutes before scheduled date?" : done
+* need to implement additional attribute to Event class, but not to database table, called "reminder". This will be boolean : done
+* If event has reminder true, then a reminder will be sent 15 minutes before event is scheduled
+* will need to implement in the UI a time component on top of the date component
+* Creating an event while the reminder attribute is true will create an entry in message details database
+* Need to create new methods that will handle processes that happen when event is created, such as creating the additioanl entries in
+the database (users_with_events and message_details)
+* on the notification handling server, we will need to implement classes to fetch the notification details
+* a listener class looking for any events whose send_time is =< 15 minutes from now
+*then the same classes that were implemented in the primary project for emailing and messaging will need to be copied to notificaiton project

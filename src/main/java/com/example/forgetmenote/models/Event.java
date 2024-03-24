@@ -32,6 +32,9 @@ public class Event {
     private String dueDate;
     private int importance;
     private Boolean active;
+    private Boolean reminderScheduled;
+
+    private String eventTime;
 
     @ElementCollection
     private List<String> attendees;
