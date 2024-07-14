@@ -9,18 +9,20 @@ Manage and view all your events in a simple interface.
 Installation
 To get started with ForgetMeNote, follow these steps:
 
-Clone the repository:
+1. Clone the repository:
 
 
 `git clone https://github.com/yourusername/ForgetMeNote.git`
 `cd ForgetMeNote`
-Build the project:
+
+2. Build the project:
 
 Make sure you have Java and Maven installed on your system. Then, build the project using Maven:
 
-`
-mvn clean install
-Run the application:
+
+`mvn clean install`
+
+3. Run the application:
 
 Once the build is successful, you can run the application using:
 
