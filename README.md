@@ -45,4 +45,5 @@ Create a pull request to the main repository.
 Please ensure your code adheres to our coding standards and includes appropriate tests.
 
 License
+
 This project is licensed under the MIT License - see the LICENSE file for details.
