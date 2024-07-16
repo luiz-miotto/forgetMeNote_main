@@ -15,7 +15,7 @@ export class Event  {
   description: string;
 
   scheduledDate: string;
-  scheduledTime: string;
+  scheduledTime: string | Date;
   dueDate: string;
   eventType: string;
   attendees: string[];

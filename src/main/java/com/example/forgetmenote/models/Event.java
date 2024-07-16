@@ -3,13 +3,9 @@ package com.example.forgetmenote.models;
 import com.example.forgetmenote.dto.CreateEventDTO;
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.stereotype.Component;
 
 import java.util.Date;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -34,7 +30,7 @@ public class Event {
     private Boolean active;
     private Boolean reminderScheduled;
 
-    private String eventTime;
+    private String scheduledTime;
 
     @ElementCollection
     private List<String> attendees;

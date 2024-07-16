@@ -40,12 +40,13 @@ public class EventController {
     @CrossOrigin(origins = "/eventForm")
     @PostMapping("/events")
     public void addEvent(@RequestBody Event event){
-        System.out.println("EventInterface scheduled date here:" + event.getAttendees());
+
         //event.setEventType(Event.EventType.WORK_EVENT);
-        System.out.println("Event scheduled date ");
-        //String[] scheduleDateParts = event.getScheduledDate().split("T");
+
+        String[] scheduleDateParts = event.getScheduledDate().split("T");
         //event.setScheduledDate(scheduleDateParts[0]);
-        event.setScheduledDate(event.getScheduledDate() + event.getEventTime());
+        event.setScheduledDate(scheduleDateParts[0] + "T" + event.getScheduledTime());
+        System.out.println("Event scheduled date " + event.getScheduledDate());
         String[] dueDateParts = event.getDueDate().split("T");
         event.setDueDate(dueDateParts[0]);
         eventRepository.save(event);
